@@ -1,0 +1,30 @@
+# requirements.txt - FinTech Nova
+# Dependencias exactas
+
+# Framework web
+fastapi==0.104.1
+uvicorn==0.24.0
+
+# Validacion de datos
+pydantic==2.4.2
+
+# Autenticacion JWT
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# HTTP cliente (para health_monitor.py)
+requests==2.31.0
+
+# Monitoreo de recursos (para ejercicio 3 del Lab)
+psutil==5.9.6
+
+# Dependencias transitivas
+anyio==3.7.1
+click==8.1.7
+h11==0.14.0
+httptools==0.6.1
+idna==3.4
+python-dotenv==1.0.0
+python-multipart==0.0.6
+sniffio==1.3.0
+starlette==0.27.0

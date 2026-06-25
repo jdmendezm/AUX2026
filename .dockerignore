@@ -1,0 +1,60 @@
+# ════════════════════════════════════════════════════════════════════
+# .dockerignore — FinTech Nova
+# Archivos que Docker NO debe incluir en la imagen.
+# Reduce el tamaño y evita exponer información sensible.
+# ════════════════════════════════════════════════════════════════════
+
+# ── Control de versiones ─────────────────────────────────────────────
+# El historial de Git no es necesario en producción y puede ser grande
+.git/
+.gitignore
+
+# ── Archivos de entorno con SECRETOS ────────────────────────────────
+# NUNCA incluir archivos .env — contienen credenciales y claves de API.
+# Si se incluyen en la imagen y la imagen se sube a Docker Hub, los secretos quedan expuestos.
+.env
+.env.local
+.env.production
+*.env
+
+# ── Caché de Python ──────────────────────────────────────────────────
+# Generado automáticamente — no útil dentro del contenedor
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# ── Entornos virtuales ───────────────────────────────────────────────
+# Docker instala sus propias dependencias con pip — no necesita el venv local
+venv/
+env/
+.venv/
+.env/
+
+# ── Backups y datos de runtime ───────────────────────────────────────
+# Generados en tiempo de ejecución, no deben estar en la imagen
+backups/
+*.log
+server.log
+health_monitor.log
+
+# ── Documentación ────────────────────────────────────────────────────
+# No necesaria en producción
+*.md
+README*
+docs/
+*.pdf
+*.docx
+
+# ── Archivos del SO ──────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Herramientas de desarrollo ───────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo

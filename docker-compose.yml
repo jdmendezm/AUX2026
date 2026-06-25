@@ -1,0 +1,81 @@
+# ════════════════════════════════════════════════════════════════════
+# docker-compose.yml — FinTech Nova
+# Sesión 13 - Laboratorio 3 | Ejercicio 7
+#
+# Uso:
+#   docker-compose up -d        → Inicia todos los servicios en segundo plano
+#   docker-compose down         → Detiene y elimina los contenedores
+#   docker-compose logs -f api  → Ver logs de la API en tiempo real
+#   docker-compose ps           → Ver estado de los servicios
+# ════════════════════════════════════════════════════════════════════
+
+version: "3.8"
+
+services:
+
+  # ── Servicio 1: API de FinTech Nova ─────────────────────────────────
+  api:
+    # Construye la imagen usando el Dockerfile del directorio actual
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Nombre del contenedor (más fácil de referenciar que el ID)
+    container_name: fintech-api
+
+    # Reinicia automáticamente si el contenedor falla
+    restart: unless-stopped
+
+    # Mapea el puerto 8000 del host al 8000 del contenedor
+    ports:
+      - "8000:8000"
+
+    # Variables de entorno del contenedor
+    # Nunca pongas valores sensibles aquí directamente — usa un archivo .env
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+
+    # Montar el directorio de datos como volumen
+    # Los datos en /app/data persisten aunque el contenedor se elimine
+    volumes:
+      - ./data:/app/data
+
+    # El servicio api depende de redis (si lo habilitas)
+    # depends_on:
+    #   - redis
+
+    # Health check: Docker verifica la salud usando el endpoint /health
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s  # Tiempo que espera antes del primer check
+
+    # Límites de recursos (opcional pero recomendado en producción)
+    deploy:
+      resources:
+        limits:
+          memory: 512M    # Máximo 512 MB de RAM
+          cpus: "1.0"     # Máximo 1 CPU
+
+  # ── Servicio 2: Redis (caché) — OPCIONAL ────────────────────────────
+  # Descomenta esta sección si implementas caché con Redis
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: fintech-redis
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 30s
+  #     timeout: 5s
+  #     retries: 3
+
+# ── Volúmenes persistentes ────────────────────────────────────────────
+volumes:
+  # redis_data:   # Descomenta si habilitas Redis
