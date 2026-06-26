@@ -5,9 +5,15 @@ Bienvenido al repositorio oficial del proyecto final de **FinTech Nova**. Este s
 ---
 
 ## 👥 Integrantes del Proyecto (Grupo de Trabajo)
+<<<<<<< HEAD
 * **Integrante 1: Juan David Mendez Mejia
 * **Integrante 2: Luis Esteban Vargas Pelayo
 * **Integrante 3: Keiner Sebastian Penagos Villalobos
+=======
+* **Integrante 1**: Juan David Mendez Mejia
+* **Integrante 2**: Luis Esteban Vargas Pelayo
+* **Integrante 3**: Keiner Sebastian Penagos Villalobos 
+>>>>>>> 497ceb690d9550d45416d0b3f3b17c588b53de23
 
 ---
 
